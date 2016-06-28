@@ -1,4 +1,4 @@
-from ff import *
+from feed_forword import *
 from test import *
 import random
 
