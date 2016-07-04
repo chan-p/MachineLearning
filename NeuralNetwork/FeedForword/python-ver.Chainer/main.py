@@ -14,3 +14,4 @@ if __name__=="__main__":
     neural = feed_forword.NeuralNet(num_hidden,num_output,x,t,iteration,"MULTI_CLASS")
     neural.run()
     neural.Answer_check()
+    neural.check_state()

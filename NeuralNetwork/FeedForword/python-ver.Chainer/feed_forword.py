@@ -156,6 +156,17 @@ class NeuralNet:
             print "Class:" + str(np.argmax(self.__Activate(u2 = self.__FeedForword(x)).data[0]))
             print "Correct:" + str(self.t_dic[key])
 
+    def check_state(self):
+        print "Feed Forword Neural Network"
+        if self.task == "MULTI_CLASS":
+            print "Type of Task:MULTI_CLASS"
+        elif self.task == "MULTI_LABEL":
+            print "Type of Task:MULTI_LABEL"
+        print "Number of Item:" + str(self.num_input)
+        print "Number of Input Units:" + str(self.num_input)
+        print "Number of Hidden Units:" + str(self.num_hidden)
+        print "Number of Output Units:" + str(self.num_output)
+
      # 実行メソッド
     def run(self):
         self.__get_model()
@@ -179,21 +190,3 @@ class NeuralNet:
                 self.__BackPropagation()
             if roop % 100 == 0:
                 self.__RMSE(roop,total)
-
-
-
-
-
-
-if __name__=="__main__":
-
-    item = {}
-    item[0] = [1,0,0]
-    item[2] = [0,0,1]
-    correct = {}
-    correct[0] = 4
-    correct[2] = 2
-
-    a = NeuralNet(10,5,item,correct,1000,"MULTI_CLASS")
-    a.run()
-    a.Answer_check()

@@ -13,7 +13,7 @@ import math
 
 class NeuralNet:
     #主要コンストラクタ
-    def __init__(self,num_input,num_hidden,Vec_input,ite):
+    def __init__(self,num_input,num_hidden,Vec_input,ite,task = "None"):
         if len(Vec_input) > 0:
             self.Vec_input = Vec_input
             self.Vec_correct = Vec_input
@@ -44,6 +44,19 @@ class NeuralNet:
             print "-----------------------------------"
             return
 
+        if task == "None":
+            self.task = "None"
+            print "---Auto Encoder Start---"
+        elif task == "Denoise":
+            self.task = "Denoise"
+            print "---Denoising Auto Encoder Start---"
+        else:
+            print "-----------------------------------"
+            sys.stderr.write("Type of Auto Encoder is Error!")
+            print
+            print "-----------------------------------"
+            return
+
     # privateメソッド
      # モデル構築：三層パーセプトロン
     def __get_model(self):
@@ -66,14 +79,13 @@ class NeuralNet:
 
     # Decodeメソッド
      # 活性化鑵子：シグモイド
-    def __Decode(self,h):
+    def __Decode(self,u1):
+        h = F.dropout(F.relu(u1))
         u2 = self.model.Output_Layer(h)
         return F.sigmoid(u2)
 
      # 損失メソッド
-     # 損失関数
-      # 多クラス分類：交差エントロピー
-      # 多値ラベル：二乗誤差
+     # 損失関数：二乗誤差
     def __LossFunction(self,t,y):
         return F.mean_squared_error(y,t)
 
@@ -95,8 +107,10 @@ class NeuralNet:
      # Encodeメソッド
       # 活性化関数：relu
     def Encode(self,x):
-        u1 = self.model.Hidden_Layer(x)
-        return F.dropout(F.relu(u1))
+        if self.task == "None":
+            return self.model.Hidden_Layer(x)
+        elif self.task == "Denoise":
+            return self.model.Hidden_Layer(F.dropout(x))
 
      # 出力結果確認メソッド
     def Answer_check(self):
@@ -106,6 +120,15 @@ class NeuralNet:
             print "Output:" + str(self.__Decode(self.Encode(x)).data)
             print "Correct:" + str(self.x_dic[key])
             print "Encode:" + str(self.Encode(x).data)
+
+    def check_state(self):
+        if self.task == "None":
+            print "Auto Encoder"
+        elif self.task == "Denoise":
+            print "Denoising Auto Encoder"
+        print "Number of Input Units:" + str(self.num_input)
+        print "Number of Hidden Units:" + str(self.num_hidden)
+        print "Number of Output Units:" + str(self.num_output)
 
      # 実行メソッド
     def run(self):
@@ -120,9 +143,9 @@ class NeuralNet:
                 # 勾配初期化
                 self.optimizer.zero_grads()
                 # Encode
-                h = self.Encode(x)
+                u1 = self.Encode(x)
                 # Decode
-                y =self.__Decode(h)
+                y =self.__Decode(u1)
                 # 損失関数
                 self.loss = self.__LossFunction(x,y)
                 total += pow(self.loss.data,2)
