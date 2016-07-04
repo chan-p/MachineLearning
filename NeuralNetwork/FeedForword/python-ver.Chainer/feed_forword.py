@@ -151,9 +151,9 @@ class NeuralNet:
     def Answer_check(self):
         for key,value in self.x_dic.items():
             print "Item Number:" + str(key)
-            print "Input:" + str(value)
             x,t = self.__change_data(key)
             print "Output:" + str(self.__Activate(u2 = self.__FeedForword(x)).data)
+            print "Class:" + str(np.argmax(self.__Activate(u2 = self.__FeedForword(x)).data[0]))
             print "Correct:" + str(self.t_dic[key])
 
      # 実行メソッド
