@@ -19,8 +19,8 @@
 ニューラルネットワーク
 ### Feed Forword Neural Network
 順伝搬型ニューラルネットワーク<br>
-モデル構築：3層パーセプトロン
+-python-ver.Chainer<br>
 ### Auto Encoder
 自己符号化器<br>
 ノイズ除去自己符号化器<br>
-モデル構築：3層パーセプトロン<br>
+-python-ver.Chainer<br>
