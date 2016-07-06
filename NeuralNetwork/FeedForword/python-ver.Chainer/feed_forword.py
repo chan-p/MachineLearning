@@ -83,6 +83,7 @@ class NeuralNet:
             print
             print "-----------------------------------"
             return
+
     # privateメソッド
      # モデル構築：三層パーセプトロン
     def __get_model(self):
