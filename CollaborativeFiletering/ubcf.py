@@ -29,6 +29,7 @@ class ubcf:
             if A_user == O_user:
                 continue
             self.userSim[O_user] = self.__cosineSim(A_user,O_user)
+            print self.userSim[O_user]
 
     def __All_Average(self):
         for A_user in range(self.num_user):
