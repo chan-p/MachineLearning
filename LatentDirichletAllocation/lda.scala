@@ -3,6 +3,7 @@ package lda
 import scala.collection.mutable._
 import read.Reader._
 import test.Tester._
+import stage.Staging._
 import accuracy.Accuracy._
 import scala.util.Random
 import scala.util.control.Breaks
@@ -25,7 +26,7 @@ package object TopicModel{
     val b = new Breaks
     //初期化関数
     def init(){
-      corpus = (new test()).generate(num_doc)
+      corpus = (new stage()).generate(num_doc)
       for(i <- 0 to (num_doc-1)){topic = topic :+ Seq[Int]()}
       for(z <- 0 to (k-1))numZ += (z -> 0)
       for(doc <- 0 to (corpus.size-1)){
@@ -52,6 +53,7 @@ package object TopicModel{
     }
     //ギブスサンプリング
     def sampling(){
+      println("smapling start")
       val sumAlpha = k * alpha //Kα
       val sumBeta = wordset.size * beta //Vβ
       for(doc <- 0 to (corpus.size-1)){
@@ -145,6 +147,7 @@ package object TopicModel{
     def run(itelate:Int){
       println("LDA Run")
       init()
+      println("init")
       for(roop <- 0 to itelate)sampling()
       computeParameters()
       output_result()

@@ -82,7 +82,7 @@ class NeuralNet:
     def __Decode(self,u1):
         h = F.dropout(F.relu(u1))
         u2 = self.model.Output_Layer(h)
-        return F.sigmoid(u2)
+        return u2
 
      # 損失メソッド
      # 損失関数：二乗誤差

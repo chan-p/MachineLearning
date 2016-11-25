@@ -14,7 +14,7 @@ if __name__=="__main__":
     # 隠れ層のユニット数
     num_hidden = 100
     # イテレーション回数
-    iteration = 5000
+    iteration = 500
     neural = auto_encoder.NeuralNet(num_input,num_hidden,x,iteration,"Denoise")
     neural.run()
     neural.Answer_check()

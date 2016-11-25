@@ -8,7 +8,7 @@ package object Tester{
     var data = new read()
     def generate(num:Int):Seq[Seq[String]]={
       var list = Seq[Seq[String]]()
-      for(n <- 0 to (num-1)){list = list :+ data.run("/Users/TomonotiHayshi/Desktop/DataSet/text/lda_test"+(n).toString+".txt")}
+      for(n <- 0 to (num-1)){list = list :+ data.run("/Users/chan-p/Desktop/DataSet/text/lda_test"+(n).toString+".txt")}
       return list
     }
   }

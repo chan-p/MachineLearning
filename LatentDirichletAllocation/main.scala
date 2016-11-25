@@ -8,8 +8,8 @@ import scala.util.control.Breaks
 object main{
   def main(args: Array[String]): Unit = {
     val start = System.currentTimeMillis
-    val lda = new LDA(3,3)
-    lda.run(200)
+    val lda = new LDA(1000,150)
+    lda.run(0)
     println("実行時間："+(System.currentTimeMillis-start)+"msec")
   }
 }
